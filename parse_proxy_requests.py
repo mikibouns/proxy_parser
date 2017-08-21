@@ -1,10 +1,13 @@
 import requests
 from lxml import html
+from proxies_list import ProxyList
 
 URL = 'https://exmo.me/ru/trade#?pair=BTC_USD'
 
+proxy_list = ProxyList()
+print(proxy_list.get_proxy())
 proxy = {
-    'http':'52.17.165.9:3130',
+    'http': proxy_list.get_proxy(),
 
 }
 
