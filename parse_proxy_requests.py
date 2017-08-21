@@ -1,21 +1,18 @@
 import requests
 from lxml import html
-from proxies_list import ProxyList
+from proxies_list import ProxyList # импортируем клас из локального файла
 
-URL = 'https://exmo.me/ru/trade#?pair=BTC_USD'
+URL = 'https://exmo.me/ru/trade#?pair=BTC_USD'# ссылка на парсируемый сайт
 
-proxy_list = ProxyList()
-print(proxy_list.get_proxy())
+proxy_list = ProxyList() # создаем экземпляр класса ProxyList
+print(proxy_list.get_proxy()) # выводим на экран результат работы метода get_proxy()
+
 proxy = {
     'http': proxy_list.get_proxy(),
-
 }
-
-# Преобразование тела документа в дерево элементов (DOM)
+# получаем целевую страницу html используя прокси сервер
 parsed_body = html.fromstring(requests.get(URL, proxies=proxy).text)
+# получаем значение обходя дерево html через метод xpath
 rate_ETH_USD = parsed_body.xpath("//div/ul/li[@pair='ETH_USD']/div[4]/text()")
 
 print(float(rate_ETH_USD[0]))
-# Выполнение xpath в дереве элементов
-# print parsed_body.xpath('//title/text()') # Получить title страницы
-# print parsed_body.xpath('//a/@href') # Получить аттрибут href для всех ссылок
