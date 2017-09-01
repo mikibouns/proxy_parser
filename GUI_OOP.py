@@ -5,7 +5,7 @@ from parse_proxy_requests import ParserProxy
 class GUI_rate:
     def __init__(self, main):
         self.entry1 = Entry(main, width=15, font=15)
-        self.button1 = Button(main, text='Проверить')
+        self.button1 = Button(main, text='Get current rate')
         self.label1 = Label(main, width=27, font=15)
 
         self.entry1.grid(row=0, column=0)
@@ -21,14 +21,14 @@ class GUI_rate:
         rate_cp = par_prox.get_rate()
         try:
             if rate_cp[0]:
-                self.label1.configure(text=rate_cp[0])
+                self.label1.configure(text=float(rate_cp[0]))
             else:
                 self.label1.configure(text='Не могу получить значение!')
         except ValueError:
             self.label1.configure(text='Не корректное значение!')
 
 root = Tk()
-root.title('Использование ООП')
+root.title('Get current rate')
 
 exchange_rate_of_a_currency_pair = GUI_rate(root)
 
